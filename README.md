@@ -1,45 +1,14 @@
-# APGB---TD1-2-3
+# Git interactive rebase
 
-Members :
- - Alexandre Brouardelle
- - Félix Bordes
- - Marco Bousseau
- 
- Il était touchant de voir avec quelle sollicitude on veillait sur la santé et sur le bonheur de la créature humaine. 
-Désirait-on fumer ? Il était exposé avec précision en quelques lignes, pourquoi le Perfecto à cinq cents 
-« Thomas Jefferson » était le seul cigare digne de ce nom. Avait-on au contraire abusé du tabac ? Il y 
-avait là un remède, à un quart de dollar les vingt-cinq pilules, qui garantissait une désintoxication complète dès la dixième dose. 
-Où qu’il tournât le regard, le promeneur s’apercevait que quelqu’un s’était préoccupé de lui faciliter son passage sur cette terre et de l’informer de ce qu’on avait fait pour lui.
+Many times, when working with Git, you may want to revise your local commit history. One of the great things about Git is that it allows you to make decisions at the last possible moment. You can decide what files go into which commits right before you commit with the staging area, you can decide that you didn’t mean to be working on something yet with git stash, and you can rewrite commits that already happened so they look like they happened in a different way. This can involve changing the order of the commits, changing messages or modifying files in a commit, squashing together or splitting apart commits, or removing commits entirely — all before you share your work with others.
 
+# Changing Multiple Commit Messages
 
-Le pont Mirabeau
+To modify a commit that is farther back in your history, you must move to more complex tools. Git doesn’t have a modify-history tool, but you can use the rebase tool to rebase a series of commits onto the HEAD that they were originally based on instead of moving them to another one. With the interactive rebase tool, you can then stop after each commit you want to modify and change the message, add files, or do whatever you wish. You can run rebase interactively by adding the -i option to git rebase. You must indicate how far back you want to rewrite commits by telling the command which commit to rebase onto.
 
-Sous le pont Mirabeau coule la Seine
-Et nos amours
-Faut-il qu'il m'en souvienne
-La joie venait toujours après la peine.
+For example, if you want to change the last three commit messages, or any of the commit messages in that group, you supply as an argument to git rebase -i the parent of the last commit you want to edit, which is HEAD~2^ or HEAD~3. It may be easier to remember the ~3 because you’re trying to edit the last three commits, but keep in mind that you’re actually designating four commits ago, the parent of the last commit you want to edit:
 
-Vienne la nuit sonne l'heure
-Les jours s'en vont je demeure
+$ git rebase -i HEAD~3
+Remember again that this is a rebasing command — every commit in the range HEAD~3..HEAD with a changed message and all of its descendants will be rewritten. Don’t include any commit you’ve already pushed to a central server — doing so will confuse other developers by providing an alternate version of the same change.
 
-Les mains dans les mains restons face à face
-Tandis que sous
-Le pont de nos bras passe
-Des éternels regards l'onde si lasse
-
-Vienne la nuit sonne l'heure
-Les jours s'en vont je demeure
-
-L'amour s'en va comme cette eau courante
-L'amour s'en va
-Comme la vie est lente
-Et comme l'Espérance est violente
-
-Vienne la nuit sonne l'heure
-Les jours s'en vont je demeure
-
-Passent les jours et passent les semaines
-Ni temps passé
-Ni les amours reviennent
-Sous le pont Mirabeau coule la Seine
-
+Marco Bousseau
